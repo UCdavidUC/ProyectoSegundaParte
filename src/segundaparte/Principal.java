@@ -21,24 +21,33 @@ import java.util.Scanner;
 public class Principal {
     public static void main(String[] args) throws IOException, FileNotFoundException {
         System.out.println("Análisis Sintáctico Descendente");
-        System.out.println("1. Introduzca una gramática contenida en un archivo de texto.");
-        System.out.println("2. Introduzca una gramática contenida en un archivo de texto.");
+        System.out.println("1. Introduzca una gramática contenida en un archivo de texto");
+        System.out.println("2. Usar el archivo contenido en la aplicación");
         Scanner in = new Scanner(System.in);
         int opcion = in.nextInt();
-        switch (opcion) {
-            case 1: 
-            break;
-            case 2:
-            break;
-            default:
-            break;
-        }
-                
+        boolean valido = false;
         FileReader fileReader = new FileReader("src/segundaparte/archivoprueba.txt");
         BufferedReader br = new BufferedReader(fileReader);
+        while (valido == false)
+            if (opcion == 1) {
+                System.out.print("Nombre del archivo: ");
+                String path = in.nextLine();
+                String filePath = '"' + path + '"';
+                fileReader = new FileReader(filePath);
+                br = new BufferedReader(fileReader);
+                valido = true;
+            } else {
+                if (opcion == 2) {
+                    fileReader = new FileReader("src/segundaparte/archivoprueba.txt");
+                    br = new BufferedReader(fileReader);
+                    valido = true;
+                } else {
+                    System.out.println("La opcion introducida no es valida, intende de nuevo");
+                }
+            }
         //Lee todas las producciones
         String primeraLinea = br.readLine();
-        ArrayList<Character> list = new ArrayList<Character>();
+        ArrayList<Character> list = new ArrayList<>();
         char[] c = new char[primeraLinea.length()];
         System.out.println(primeraLinea + ' ' + primeraLinea.length());
         for (int i = 0; i < primeraLinea.length(); i++) {
