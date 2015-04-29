@@ -59,12 +59,66 @@ public class Principal {
         cadenaTerminal.print();
         String cadena;
         while((cadena = br.readLine()) != null) {
-            ArrayList<Character> lista = new ArrayList<>();
+            ArrayList<Character> produccion = new ArrayList<>();
+            char k[] = new char[cadena.length()];
             for(int i = 0; i < cadena.length(); i++) {
-                c[i] = cadena.charAt(i);
-                lista.add(c[i]);
+                //System.out.println(k[i]);
+                k[i] = cadena.charAt(i);
+                if (produccion.get(i) != '-' && produccion.get(i) != '>') {
+                    produccion.add(k[i]);
+                }
             }
-            System.out.println(lista);
+            //System.out.println(produccion);
+            ArrayList<Character> produccion2 = new ArrayList<>();
+            ArrayList<Character> produccion3 = new ArrayList<>();
+            int count = 0;
+            for(int i = 0; i < produccion.size(); i++) {
+                
+                if(produccion.get(i) == '|' && count == 0) {
+                    produccion.remove(i);
+                    produccion2.add(produccion.get(1));
+                    count++;
+                } else {
+                    if(produccion .get(i) == '|' && count == 1) {
+                        produccion.remove(i);
+                        produccion3.add(produccion.get(1));
+                        count++;
+                    }
+                }
+                if(count == 1) {
+                    produccion2.add(produccion .get(i));
+                    produccion.remove(i);
+                }
+                if (count == 2) {
+                    produccion3.add(produccion.get(i));
+                    produccion.remove(i);
+                }
+            }
+            System.out.println(produccion);
+            System.out.println(produccion2);
+            System.out.println(produccion3);
+            /*for (int i = 0; i < produccion.size(); i++)
+            {
+                if(produccion.get(i) == '-' || produccion.get(i) == '>')
+                {
+                    produccion.remove(i);
+                    i = i - 1;
+                } else {
+                    if(produccion.get(i) == '|' && count == 0) 
+                    {
+                        ArrayList<Character> produccion2 = new ArrayList<>();
+                        produccion2.add(cadena.charAt(1));
+                        count = count + 1;
+                    } else {
+                        if(produccion.get(i) == '|' && count == 1)
+                        {
+                            ArrayList<Character> produccion3 = new ArrayList<>();
+                            count = count + 1;
+                        }
+                    }
+                }
+            }*/
+            System.out.println(produccion);
         }
         //Una vez guardadas inicia el analsis sintáctico descendente
         //Se busca que una vez construida la cadena se almacene en un nodo
