@@ -32,8 +32,8 @@ public class Arbol {
         arbol = a;
     }
     
-    public void agregaHijos(Nodo raiz, ArrayList<Produccion> producciones) {
-        
+    public void buildTree(char simNoTerminal) {
+            
     }
     
 }

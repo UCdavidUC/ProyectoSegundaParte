@@ -41,7 +41,25 @@ public class Nodo {
         hijos = h;
     }
     
-    public void addSon(Nodo n) {
+    public void addSon(Nodo n, ArrayList<Produccion> producciones) {
+        while (hijos != null) {
+            for (int i = 0; i < hijos.size(); i++) {
+                Nodo nodo = hijos.get(i);
+                Cadena cadena = nodo.getCadena();
+                ArrayList<Character> c = cadena.getCadena();
+                for (int j = 0; j < c.size(); j++) {
+                    char a = c.get(i);
+                    if (Character.isUpperCase(a) == true) {
+                        for (int k = 0; k < producciones.size(); k++) {
+                            Produccion produccion = producciones.get(i);
+                            char noTerminal = produccion.getNoTerminal();
+                            ArrayList<Character> listaCaracteres = cad.getCadena();
+                            a ==
+                        }
+                    }
+                }
+            }
+        }
         hijos.add(n);
     }
     

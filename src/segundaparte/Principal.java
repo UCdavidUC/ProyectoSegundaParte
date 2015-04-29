@@ -59,6 +59,7 @@ public class Principal {
         }
         Cadena cadenaTerminal = new Cadena(list);
         cadenaTerminal.print();
+        //Almacenmaiento de las producciones en una lista.
         ArrayList<Produccion> producciones = new ArrayList<>();
         String cadena;
         char simNoTerminal = ' ';
@@ -114,14 +115,12 @@ public class Principal {
                 producciones.add(p3);
             }
         }
-        //Verificacion pra el almacenamiento de datos
+        //Verificacion pra el almacenamiento de los datos
         for(int i = 0; i < producciones.size(); i++) {
             Produccion printable = producciones.get(i);
             printable.print();
         }
-        ArrayList<Character> cadenaNodoInicial = new ArrayList<>();
-        cadenaNodoInicial.add('S');
-        Cadena cadenaRaiz = new Cadena(cadenaNodoInicial);
+        //Creacion del nodo raíz para el arbol
         Nodo raiz = new Nodo();
         
         Arbol arbol = new Arbol();
