@@ -45,7 +45,6 @@ public class Principal {
                     System.out.println("La opcion introducida no es valida, intende de nuevo");
                 }
             }
-        //Lee todas las producciones
         String primeraLinea = br.readLine();
         ArrayList<Character> list = new ArrayList<>();
         char[] c = new char[primeraLinea.length()];
@@ -53,73 +52,71 @@ public class Principal {
         for (int i = 0; i < primeraLinea.length(); i++) {
             c[i] = primeraLinea.charAt(i);
             list.add(c[i]);
-            System.out.println(c[i]);
         }
         Cadena cadenaTerminal = new Cadena(list);
         cadenaTerminal.print();
+        ArrayList<Produccion> producciones = new ArrayList<>();
         String cadena;
         while((cadena = br.readLine()) != null) {
             ArrayList<Character> produccion = new ArrayList<>();
             char k[] = new char[cadena.length()];
             for(int i = 0; i < cadena.length(); i++) {
-                //System.out.println(k[i]);
                 k[i] = cadena.charAt(i);
-                if (produccion.get(i) != '-' && produccion.get(i) != '>') {
+                if (k[i] != '-' && k[i] != '>') {
                     produccion.add(k[i]);
                 }
             }
-            //System.out.println(produccion);
             ArrayList<Character> produccion2 = new ArrayList<>();
             ArrayList<Character> produccion3 = new ArrayList<>();
+            int marcador1 = 0;
             int count = 0;
-            for(int i = 0; i < produccion.size(); i++) {
-                
+            for(int i = 0; i < produccion.size(); i++) {                
                 if(produccion.get(i) == '|' && count == 0) {
                     produccion.remove(i);
-                    produccion2.add(produccion.get(1));
+                    produccion2.add(produccion.get(0));
+                    marcador1 = i;
                     count++;
                 } else {
                     if(produccion .get(i) == '|' && count == 1) {
                         produccion.remove(i);
-                        produccion3.add(produccion.get(1));
+                        produccion3.add(produccion.get(0));
                         count++;
                     }
                 }
                 if(count == 1) {
-                    produccion2.add(produccion .get(i));
-                    produccion.remove(i);
+                    produccion2.add(produccion.get(i));
                 }
                 if (count == 2) {
                     produccion3.add(produccion.get(i));
-                    produccion.remove(i);
                 }
             }
-            System.out.println(produccion);
-            System.out.println(produccion2);
-            System.out.println(produccion3);
-            /*for (int i = 0; i < produccion.size(); i++)
-            {
-                if(produccion.get(i) == '-' || produccion.get(i) == '>')
-                {
-                    produccion.remove(i);
-                    i = i - 1;
-                } else {
-                    if(produccion.get(i) == '|' && count == 0) 
-                    {
-                        ArrayList<Character> produccion2 = new ArrayList<>();
-                        produccion2.add(cadena.charAt(1));
-                        count = count + 1;
-                    } else {
-                        if(produccion.get(i) == '|' && count == 1)
-                        {
-                            ArrayList<Character> produccion3 = new ArrayList<>();
-                            count = count + 1;
-                        }
-                    }
-                }
-            }*/
-            System.out.println(produccion);
+            for (int i = marcador1; i < produccion.size(); i++) {
+                produccion.remove(i);
+            }
+            Cadena cad = new Cadena(produccion);
+            Produccion p = new Produccion(k[1], cad);
+            producciones.add(p);
+            if(produccion2.size() > 0) {
+                Cadena cad2 = new Cadena(produccion2);
+                Produccion p2 = new Produccion(k[1], cad2);
+                producciones.add(p2);
+            }
+            if(produccion3.size() > 0) {
+                Cadena cad3 = new Cadena(produccion3);
+                Produccion p3 = new Produccion(k[1], cad3);
+                producciones.add(p3);
+            }
         }
+        for(int i = 0; i < producciones.size(); i++) {
+            System.out.println(producciones.get(i));
+        }
+        ArrayList<Character> cadenaNodoInicial = new ArrayList<>();
+        cadenaNodoInicial.add('S');
+        Cadena cadenaRaiz = new Cadena(cadenaNodoInicial);
+        Nodo raiz = new Nodo();
+        
+        Arbol arbol = new Arbol();
+        
         //Una vez guardadas inicia el analsis sintáctico descendente
         //Se busca que una vez construida la cadena se almacene en un nodo
         //para hacer los pasos recursivos, se pone una condicion para el primer
