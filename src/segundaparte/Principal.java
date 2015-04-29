@@ -68,13 +68,13 @@ public class Principal {
             }
             ArrayList<Character> produccion2 = new ArrayList<>();
             ArrayList<Character> produccion3 = new ArrayList<>();
-            int marcador1 = 0;
+            int marcadorDelete = 0;
             int count = 0;
             for(int i = 0; i < produccion.size(); i++) {                
                 if(produccion.get(i) == '|' && count == 0) {
                     produccion.remove(i);
                     produccion2.add(produccion.get(0));
-                    marcador1 = i;
+                    marcadorDelete = i;
                     count++;
                 } else {
                     if(produccion .get(i) == '|' && count == 1) {
@@ -90,8 +90,9 @@ public class Principal {
                     produccion3.add(produccion.get(i));
                 }
             }
-            for (int i = marcador1; i < produccion.size(); i++) {
+            for (int i = marcadorDelete; i < produccion.size(); i++) {
                 produccion.remove(i);
+                i = i - 1;
             }
             Cadena cad = new Cadena(produccion);
             Produccion p = new Produccion(k[1], cad);
