@@ -16,9 +16,11 @@ public class Arbol {
     
     private ArrayList<Nodo> arbol;
     
+    //Constructor vacio para la clase Arbol
     public Arbol () {
         
     }
+    //Construccior para la clase Arbol que recibe como parametro de entrada una lista de nodos
     public Arbol (ArrayList<Nodo> arbol) {
         this.arbol = arbol;
     }

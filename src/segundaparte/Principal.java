@@ -20,6 +20,7 @@ import java.util.Scanner;
  */
 public class Principal {
     public static void main(String[] args) throws IOException, FileNotFoundException {
+        //Menu de inicio
         System.out.println("Análisis Sintáctico Descendente");
         System.out.println("1. Introduzca una gramática contenida en un archivo de texto");
         System.out.println("2. Usar el archivo contenido en la aplicación");
@@ -30,6 +31,9 @@ public class Principal {
         BufferedReader br = new BufferedReader(fileReader);
         while (valido == false)
             if (opcion == 1) {
+                System.out.println("Para añadir una gramatica contenida en un archivo de texto, primero coloque el archivo de texto en la carpeta con las clases en java");
+                System.out.println("El orden de los elementos debe ser:");
+                System.out.println("Primera linea con la cadena a verificar, y las demas lines con las producciones de la siguiente forma S->A|a");
                 System.out.print("Nombre del archivo: ");
                 String path = in.nextLine();
                 String filePath = '"' + path + '"';
@@ -57,29 +61,31 @@ public class Principal {
         cadenaTerminal.print();
         ArrayList<Produccion> producciones = new ArrayList<>();
         String cadena;
+        char simNoTerminal = ' ';
         while((cadena = br.readLine()) != null) {
             ArrayList<Character> produccion = new ArrayList<>();
-            char k[] = new char[cadena.length()];
-            for(int i = 0; i < cadena.length(); i++) {
-                k[i] = cadena.charAt(i);
-                if (k[i] != '-' && k[i] != '>') {
-                    produccion.add(k[i]);
-                }
-            }
             ArrayList<Character> produccion2 = new ArrayList<>();
             ArrayList<Character> produccion3 = new ArrayList<>();
             int marcadorDelete = 0;
+            char k[] = new char[cadena.length()];
+            for(int i = 0; i < cadena.length(); i++) {
+                k[i] = cadena.charAt(i);
+                if (i == 0) {
+                    simNoTerminal = k[i];
+                }
+                if (k[i] != '-' && k[i] != '>' && i > 0) {
+                    produccion.add(k[i]);
+                }
+            }
             int count = 0;
             for(int i = 0; i < produccion.size(); i++) {                
                 if(produccion.get(i) == '|' && count == 0) {
                     produccion.remove(i);
-                    produccion2.add(produccion.get(0));
                     marcadorDelete = i;
                     count++;
                 } else {
                     if(produccion .get(i) == '|' && count == 1) {
                         produccion.remove(i);
-                        produccion3.add(produccion.get(0));
                         count++;
                     }
                 }
@@ -95,21 +101,23 @@ public class Principal {
                 i = i - 1;
             }
             Cadena cad = new Cadena(produccion);
-            Produccion p = new Produccion(k[1], cad);
+            Produccion p = new Produccion(simNoTerminal, cad);
             producciones.add(p);
             if(produccion2.size() > 0) {
                 Cadena cad2 = new Cadena(produccion2);
-                Produccion p2 = new Produccion(k[1], cad2);
+                Produccion p2 = new Produccion(simNoTerminal, cad2);
                 producciones.add(p2);
             }
             if(produccion3.size() > 0) {
                 Cadena cad3 = new Cadena(produccion3);
-                Produccion p3 = new Produccion(k[1], cad3);
+                Produccion p3 = new Produccion(simNoTerminal, cad3);
                 producciones.add(p3);
             }
         }
+        //Verificacion pra el almacenamiento de datos
         for(int i = 0; i < producciones.size(); i++) {
-            System.out.println(producciones.get(i));
+            Produccion printable = producciones.get(i);
+            printable.print();
         }
         ArrayList<Character> cadenaNodoInicial = new ArrayList<>();
         cadenaNodoInicial.add('S');

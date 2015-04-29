@@ -4,6 +4,8 @@
  */
 package segundaparte;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author Alejandra Martínez Cuevas
@@ -37,7 +39,8 @@ public class Produccion {
     }
         
     public void print() {
-        System.out.print(simboloNoTerminal + " -> " + cadena);
+        ArrayList<Character> printable = cadena.getCadena();
+        System.out.println(simboloNoTerminal + " -> " + printable);
     }
     
 }
